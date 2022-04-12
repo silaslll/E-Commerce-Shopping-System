@@ -34,7 +34,7 @@ public class UserService {
 		return (List<Role>) roleRepo.findAll();
 	}
 
-	public void save(User user) {
+	public User save(User user) {
 		
 		//check if it's editing the user
 		
@@ -53,7 +53,7 @@ public class UserService {
 			encodePassword(user);            //if creating the user, just encode and save the password
 		}
 		
-		userRepo.save(user);                 //save the entity into database
+		return userRepo.save(user);                 //save the entity into database
 	}
 	
 	private void encodePassword(User user) {

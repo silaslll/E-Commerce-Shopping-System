@@ -95,6 +95,7 @@
 					<td>[[${user.roles}]]</td>
 					
 					<td>
+					
 						<!-- disable the user if current status is true -->
 						<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green" 
 							th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
