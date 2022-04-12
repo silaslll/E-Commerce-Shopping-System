@@ -27,6 +27,8 @@ public class FileUploadUtil {
 		}
 	}
 	
+	
+	 //delete previous image before saving the image
 	public static void cleanDir(String dir) {
 		Path dirPath = Paths.get(dir);
 		

@@ -59,7 +59,7 @@ public class UserController {						//This class is for handling methods
 			
 			String uploadDir = "user-photos/" + savedUser.getId();
 			
-			FileUploadUtil.cleanDir(uploadDir);
+			FileUploadUtil.cleanDir(uploadDir);                            //delete previous image before saving the image
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 			
 		} else {
