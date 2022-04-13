@@ -31,18 +31,24 @@ public class UserController {						//This class is for handling methods
 
 	@GetMapping("/users")
 	public String listFirstPage(Model model) {
-		return listByPage(1, model, "firstName", "asc");
+		return listByPage(1, model, "firstName", "asc", null);
 	}
 	
 	
+	/*URI parameter (Path Param) is basically used to identify a 
+	 * specific resource or resources whereas Query Parameter is 
+	 * used to sort/filter those resources.
+	 * */
+	
 	@GetMapping("/users/page/{pageNum}")
 	public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
-			@Param("sortField") String sortField, @Param("sortDir") String sortDir
+			@Param("sortField") String sortField, @Param("sortDir") String sortDir,
+			@Param("keyword") String keyword
 			) {
 		System.out.println("Sort Field: " + sortField);
 		System.out.println("Sort Order: " + sortDir);
 
-		Page<User> page = service.listByPage(pageNum, sortField, sortDir);
+		Page<User> page = service.listByPage(pageNum, sortField, sortDir, keyword);
 		
 		List<User> listUsers = page.getContent();
 		
@@ -60,9 +66,11 @@ public class UserController {						//This class is for handling methods
 		model.addAttribute("endCount", endCount);
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("listUsers", listUsers);
-		model.addAttribute("sortField", sortField);
-		model.addAttribute("sortDir", sortDir);
-		model.addAttribute("reverseSortDir", reverseSortDir);
+		model.addAttribute("sortField", sortField);              //in order to show the direction of arrow icon
+		model.addAttribute("sortDir", sortDir);					 //in order to show the direction of arrow icon
+		model.addAttribute("reverseSortDir", reverseSortDir);	 //in order to show the direction of arrow icon
+		model.addAttribute("keyword", keyword);
+
 		
 		return "users";		
 	}
