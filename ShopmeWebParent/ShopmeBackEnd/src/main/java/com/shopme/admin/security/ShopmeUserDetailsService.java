@@ -18,8 +18,7 @@ public class ShopmeUserDetailsService implements UserDetailsService {
 		User user = userRepo.getUserByEmail(email);
 		if (user != null) {
 			return new ShopmeUserDetails(user);
-		}
-		
+		}	
 		throw new UsernameNotFoundException("Could not find user with email: " + email);
 	}
 
