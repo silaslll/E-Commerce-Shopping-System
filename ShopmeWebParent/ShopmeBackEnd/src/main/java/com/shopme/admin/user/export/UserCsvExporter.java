@@ -9,7 +9,6 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import com.shopme.admin.user.AbstractExporter;
 import com.shopme.common.entity.User;
 
 public class UserCsvExporter extends AbstractExporter {
