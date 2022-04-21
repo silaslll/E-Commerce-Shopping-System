@@ -1,5 +1,7 @@
 package com.shopme.admin.category;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
@@ -82,6 +84,12 @@ public class CategoryRepositoryTest {
 			System.out.println(subCategory.getName());
 
 			printChildren(subCategory, newSubLevel);
-		}		
+		}	
+		
+	}
+	@Test
+	public void testListRootCategories() {
+		List<Category> rootCategories = repo.findRootCategories();
+		rootCategories.forEach(cat -> System.out.println(cat.getName()));
 	}
 }

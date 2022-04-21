@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.shopme.common.entity.Category;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 
@@ -54,15 +55,39 @@ public class CategoryController {
 	public String saveCategory(Category category, 
 			@RequestParam("fileImage") MultipartFile multipartFile,
 			RedirectAttributes ra) throws IOException {
-		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		category.setImage(fileName);
+		if (!multipartFile.isEmpty()) {
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			category.setImage(fileName);
 
-		Category savedCategory = service.save(category);
-		String uploadDir = "../category-images/" + savedCategory.getId();
-		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			Category savedCategory = service.save(category);
+			String uploadDir = "../category-images/" + savedCategory.getId();
+
+			FileUploadUtil.cleanDir(uploadDir);
+			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+		} else {
+			service.save(category);
+		}
 
 		ra.addFlashAttribute("message", "The category has been saved successfully.");
 		return "redirect:/categories";
+	}
+	
+	@GetMapping("/categories/edit/{id}")
+	public String editCategory(@PathVariable(name = "id") Integer id, Model model,
+			RedirectAttributes ra) {
+		try {
+			Category category = service.get(id);
+			List<Category> listCategories = service.listCategoriesUsedInForm();
+
+			model.addAttribute("category", category);
+			model.addAttribute("listCategories", listCategories);
+			model.addAttribute("pageTitle", "Edit Category (ID: " + id + ")");
+
+			return "categories/category_form";			
+		} catch (CategoryNotFoundException ex) {
+			ra.addFlashAttribute("message", ex.getMessage());
+			return "redirect:/categories";
+		}
 	}
 	
 }
