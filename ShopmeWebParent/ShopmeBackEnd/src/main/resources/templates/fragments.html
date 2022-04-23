@@ -56,7 +56,7 @@
 		&nbsp; 
 		<a class="fas fa-trash fa-2x icon-dark link-delete" 
 			th:href="@{'/users/delete/' + ${user.id}}"
-			th:userId="${user.id}"
+			th:entityId="${user.id}"
 			title="Delete this user"></a>	
 	</div>
 	
@@ -65,21 +65,23 @@
 			th:href="@{'/categories/' + ${cat.id} + '/enabled/false'}"
 			title="Disable this category"
 			></a>
-
+			
 		<a th:if="${cat.enabled == false}" class="fas fa-circle fa-2x icon-dark" 
 			th:href="@{'/categories/' + ${cat.id} + '/enabled/true'}"
 			title="Enable this category"
 			></a>	
 	</div>
-
+	
 	<div th:fragment="category_actions" th:remove="tag">
 		<a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${cat.id}}"
 			title="Edit this category"></a>
 		&nbsp; 
+		<th:block th:if="${cat.hasChildren == false}">
 		<a class="fas fa-trash fa-2x icon-dark link-delete" 
 			th:href="@{'/categories/delete/' + ${cat.id}}"
-			th:catId="${cat.id}"
-			title="Delete this category"></a>	
+			th:entityId="${cat.id}"
+			title="Delete this category"></a>
+		</th:block>	
 	</div>	
 </body>
 </html>
