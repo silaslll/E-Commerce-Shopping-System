@@ -16,12 +16,16 @@ import com.shopme.common.entity.Category;
 @ExtendWith(SpringExtension.class)
 public class CategoryServiceTests {
 
+	//create a fake category repo
 	@MockBean
 	private CategoryRepository repo;
 
+	//inject the fake category repo in to service
 	@InjectMocks
 	private CategoryService service;
 
+	
+	//We don't want to test the whole repository layer, so we use a MockBean to let Mockito test.
 	@Test
 	public void testCheckUniqueInNewModeReturnDuplicateName() {
 		Integer id = null;
@@ -29,7 +33,9 @@ public class CategoryServiceTests {
 		String alias = "abc";
 
 		Category category = new Category(id, name, alias);
-
+		
+		
+		//When the repo.findByName(name) method is called, then return category. So if we use checkUnique method, it will return DuplicateName
 		Mockito.when(repo.findByName(name)).thenReturn(category);
 		Mockito.when(repo.findByAlias(alias)).thenReturn(null);
 
@@ -91,7 +97,7 @@ public class CategoryServiceTests {
 		String name = "NameABC";
 		String alias = "computers";
 
-		Category category = new Category(2, name, alias);
+		Category category = new Category(2, name, alias);        //the test will fail if new Category(1, name, alias)
 
 		Mockito.when(repo.findByName(name)).thenReturn(null);
 		Mockito.when(repo.findByAlias(alias)).thenReturn(category);

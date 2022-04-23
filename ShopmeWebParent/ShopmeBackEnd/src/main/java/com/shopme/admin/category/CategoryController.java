@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.shopme.common.entity.Category;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.data.repository.query.Param;
 
 
 
@@ -32,10 +33,18 @@ public class CategoryController {
 	private CategoryService service;
 
 	@GetMapping("/categories")
-	public String listAll(Model model) {
-		List<Category> listCategories = service.listAll();
+	public String listAll(@Param("sortDir") String sortDir, Model model) {
+		if (sortDir ==  null || sortDir.isEmpty()) {
+			sortDir = "asc";
+		}
+		
+		List<Category> listCategories = service.listAll(sortDir);
+		
+		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+		
 		model.addAttribute("listCategories", listCategories);
-
+		model.addAttribute("reverseSortDir", reverseSortDir);
+		
 		return "categories/categories";
 	}
 	
