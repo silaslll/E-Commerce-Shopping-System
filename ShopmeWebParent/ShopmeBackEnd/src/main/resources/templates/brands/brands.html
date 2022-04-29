@@ -6,14 +6,14 @@
 	<div th:replace="navigation :: menu"></div>
 	<div>
 		<h2>Manage Brands</h2>	
-
+		
 		<a th:href="@{/brands/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
 		<a th:href="@{/brands/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
-
+				
 	</div>
-
+		
 	<div th:replace="fragments :: search_form_and_message('/brands/page/1')" />
-
+	
 	<div class="full-details">
 		<table class="table table-bordered table-striped table-hover table-responsive-xl">
 			<thead class="thead-dark">
@@ -28,7 +28,9 @@
 			<tbody>
 				<tr th:each="brand : ${listBrands}">
 					<td>[[${brand.id}]]</td>
-					<td></td>
+					<td>
+						<img th:src="@{${brand.logoPath}}" style="width: 100px" class="img-fluid"/>
+					</td>
 					<td>[[${brand.name}]]</td>
 					<td>
 						<th:block th:each="cat : ${brand.categories}">
@@ -45,11 +47,11 @@
 			</tbody>
 		</table>
 	</div>
-
+	
 	<div th:replace="modal_fragments :: confirm_modal" />
-
+	
 	<div th:replace="fragments :: footer"></div>
-
+	
 </div>
 <script th:src="@{/js/common_list.js}"></script>
 <script type="text/javascript">
@@ -63,4 +65,4 @@
 	});
 </script>
 </body>
-</html> 
+</html>
