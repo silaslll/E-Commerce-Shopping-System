@@ -9,7 +9,6 @@
 		
 		<a th:href="@{/brands/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
 		<a th:href="@{/brands/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
-				
 	</div>
 		
 	<div th:replace="fragments :: search_form_and_message('/brands/page/1')" />
@@ -20,7 +19,7 @@
 				<tr>
 					<th>Brand ID</th>
 					<th>Logo</th>
-					<th>Brand Name</th>
+					<th th:replace="fragments :: column_link('/brands', 'name', 'Brand Name', 'none')" />
 					<th>Categories</th>
 					<th></th>
 				</tr>								
@@ -47,6 +46,8 @@
 			</tbody>
 		</table>
 	</div>
+	
+	<div th:replace="fragments :: pagination('/brands', 'brands')"></div>
 	
 	<div th:replace="modal_fragments :: confirm_modal" />
 	
