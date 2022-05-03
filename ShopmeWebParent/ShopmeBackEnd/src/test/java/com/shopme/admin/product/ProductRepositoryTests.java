@@ -34,8 +34,8 @@ public class ProductRepositoryTests {
 		Category category = entityManager.find(Category.class, 5);
 
 		Product product = new Product();
-		product.setName("Acer Aspire Desktop");
-		product.setAlias("acer_aspire_desktop");
+		product.setName("Acer Aspire Desktop3");
+		product.setAlias("acer_aspire_desktop3");
 		product.setShortDescription("Short description for Acer Aspire");
 		product.setFullDescription("Full description for Acer Aspire");
 
@@ -65,7 +65,7 @@ public class ProductRepositoryTests {
 
 	@Test
 	public void testGetProduct() {
-		Integer id = 2;
+		Integer id = 1;
 		Product product = repo.findById(id).get();
 		System.out.println(product);
 
