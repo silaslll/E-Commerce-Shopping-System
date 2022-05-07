@@ -2,18 +2,13 @@ $(document).ready(function() {
 	$("#buttonCancel").on("click", function() {
 		window.location = moduleURL;
 	});
-
+	
 	$("#fileImage").change(function() {
-		fileSize = this.files[0].size;
-
-		if (fileSize > 1048576) {
-			this.setCustomValidity("You must choose an image less than 1MB!");
-			this.reportValidity();
-		} else {
-			this.setCustomValidity("");
-			showImageThumbnail(this);				
+		if (!checkFileSize(this)) {
+			return;
 		}
-
+		
+		showImageThumbnail(this);				
 	});
 });
 
@@ -23,9 +18,24 @@ function showImageThumbnail(fileInput) {
 	reader.onload = function(e) {
 		$("#thumbnail").attr("src", e.target.result);
 	};
-
+	
 	reader.readAsDataURL(file);
-} 
+}
+
+function checkFileSize(fileInput) {
+	fileSize = fileInput.files[0].size;
+
+		if (fileSize > 1048576) {
+			this.setCustomValidity("You must choose an image less than 1MB!");
+		fileInput.reportValidity();
+		
+		return false;
+	} else {
+		fileInput.setCustomValidity("");
+		
+		return true;
+	}	
+}
 
 function showModalDialog(title, message) {
 	$("#modalTitle").text(title);
@@ -39,4 +49,4 @@ function showErrorModal(message) {
 
 function showWarningModal(message) {
 	showModalDialog("Warning", message);
-} 
+}
