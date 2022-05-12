@@ -8,23 +8,22 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
-import com.shopme.common.entity.Category;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
+import com.shopme.common.entity.Category;
 
 @Service
 @Transactional
 public class CategoryService {
-	
 	public static final int ROOT_CATEGORIES_PER_PAGE = 4;
-
+	
 	@Autowired
 	private CategoryRepository repo;
 	
@@ -38,19 +37,18 @@ public class CategoryService {
 			sort = sort.descending();
 		}
 		
-		
 		Pageable pageable = PageRequest.of(pageNum - 1, ROOT_CATEGORIES_PER_PAGE, sort);
-
+		
 		Page<Category> pageCategories = null;
-
+		
 		if (keyword != null && !keyword.isEmpty()) {
 			pageCategories = repo.search(keyword, pageable);	
 		} else {
 			pageCategories = repo.findRootCategories(pageable);
 		}
-
+		
 		List<Category> rootCategories = pageCategories.getContent();
-
+		
 		pageInfo.setTotalElements(pageCategories.getTotalElements());
 		pageInfo.setTotalPages(pageCategories.getTotalPages());
 		
@@ -59,9 +57,9 @@ public class CategoryService {
 			for (Category category : searchResult) {
 				category.setHasChildren(category.getChildren().size() > 0);
 			}
-
+			
 			return searchResult;
-
+			
 		} else {
 			return listHierarchicalCategories(rootCategories, sortDir);
 		}
@@ -106,6 +104,13 @@ public class CategoryService {
 	}
 	
 	public Category save(Category category) {
+		Category parent = category.getParent();
+		if (parent != null) {
+			String allParentIds = parent.getAllParentIDs() == null ? "-" : parent.getAllParentIDs();
+			allParentIds += String.valueOf(parent.getId()) + "-";
+			category.setAllParentIDs(allParentIds);
+		}
+		
 		return repo.save(category);
 	}
 	
@@ -215,7 +220,7 @@ public class CategoryService {
 		if (countById == null || countById == 0) {
 			throw new CategoryNotFoundException("Could not find any category with ID " + id);
 		}
-
+		
 		repo.deleteById(id);
 	}	
 }
