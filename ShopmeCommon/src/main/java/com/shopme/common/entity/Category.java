@@ -1,6 +1,7 @@
 package com.shopme.common.entity;
 
 import java.util.HashSet;
+import javax.persistence.OrderBy;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -40,6 +41,7 @@ public class Category {
 	private Category parent;
 	
 	@OneToMany(mappedBy = "parent")
+	@OrderBy("name asc")
 	private Set<Category> children = new HashSet<>();
 
 	public Category() {
