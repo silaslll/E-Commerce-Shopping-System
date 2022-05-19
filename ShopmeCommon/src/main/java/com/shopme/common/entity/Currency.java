@@ -65,5 +65,12 @@ public class Currency {
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
+	@Override
+	public String toString() {
+		return name + " - " + code + " - " + symbol;
+	}
+
+
 
 }
