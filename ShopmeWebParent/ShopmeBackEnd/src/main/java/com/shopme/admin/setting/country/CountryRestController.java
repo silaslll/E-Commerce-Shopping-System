@@ -17,8 +17,8 @@ public class CountryRestController {
 	@Autowired private CountryRepository repo;
 
 	@GetMapping("/countries/list")
-	public List<Country> listAll() {
-		return repo.findAllByOrderByNameAsc();
+	public List<Country> listAll() {		
+		return repo.findAllByOrderByNameAsc();                //return a list rather than a html file, so we need RestControllerTests
 	}
 
 	@PostMapping("/countries/save")
