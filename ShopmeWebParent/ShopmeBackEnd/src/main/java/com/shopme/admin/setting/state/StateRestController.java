@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shopme.common.entity.Country;
 import com.shopme.common.entity.State;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 @RestController
 public class StateRestController {
@@ -36,7 +37,7 @@ public class StateRestController {
 		return String.valueOf(savedState.getId());
 	}
 
-	@GetMapping("/states/delete/{id}")
+	@DeleteMapping("/states/delete/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		repo.deleteById(id);
 	}
