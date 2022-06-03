@@ -32,11 +32,11 @@ public class UserController {						//This class is for handling methods
 
 	@Autowired
 	private UserService service;
-	
+	private String defaultRedirectURL = "redirect:/users/page/1?sortField=firstName&sortDir=asc";
 
 	@GetMapping("/users")
-	public String listFirstPage(Model model) {
-		return listByPage(1, model, "firstName", "asc", null);
+	public String listFirstPage() {
+		return defaultRedirectURL;
 	}
 	
 	
@@ -135,7 +135,7 @@ public class UserController {						//This class is for handling methods
 			return "users/user_form";
 		} catch (UserNotFoundException ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());         //in order to set massage when redirecting
-			return "redirect:/users";
+			return defaultRedirectURL;
 		}
 	}
 	
@@ -153,7 +153,7 @@ public class UserController {						//This class is for handling methods
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
 		}
 		
-		return "redirect:/users";
+		return defaultRedirectURL;
 	}
 	
 	@GetMapping("/users/{id}/enabled/{status}")
@@ -164,7 +164,7 @@ public class UserController {						//This class is for handling methods
 		String message = "The user ID " + id + " has been " + status;
 		redirectAttributes.addFlashAttribute("message", message);
 		
-		return "redirect:/users";
+		return defaultRedirectURL;
 	}
 	
 	@GetMapping("/users/export/csv")
