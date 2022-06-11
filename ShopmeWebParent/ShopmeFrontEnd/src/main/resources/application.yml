@@ -3,8 +3,10 @@ server:
   servlet:
     context-path: /Shopme
 spring:
+  main:
+    allow-circular-references: true
   datasource:
-    password: password
+    password: abc123456
     url: jdbc:mysql://localhost:3306/shopmedb
     username: root
   jpa:
@@ -14,8 +16,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
-    show-sql: true
-
+    show-sql: true    
   security:
     oauth2:
       client:
@@ -26,3 +27,10 @@ spring:
             scope:
             - email
             - profile
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+
+      
+
+
