@@ -26,7 +26,13 @@ spring:
             client-secret: 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
             scope:
             - email
-            - profile
+            - profile           
+          facebook:
+            client-id: 1065065327239672
+            client-secret: 36b56b7e6d6540eb7a40d538f8d99c05
+            scope:
+            - email
+            - public_profile
   mvc:
     pathmatch:
       matching-strategy: ant-path-matcher
