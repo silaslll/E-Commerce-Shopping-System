@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,12 +78,12 @@ public class ProductController {
 	}
 	
 	@GetMapping("/search")
-	public String searchFirstPage(@Param("keyword") String keyword, Model model) {
+	public String searchFirstPage(String keyword, Model model) {
 		return searchByPage(keyword, 1, model);
 	}
 	
 	@GetMapping("/search/page/{pageNum}")
-	public String searchByPage(@Param("keyword") String keyword,
+	public String searchByPage(String keyword,
 			@PathVariable("pageNum") int pageNum,
 			Model model) {
 		Page<Product> pageProducts = productService.search(keyword, pageNum);
