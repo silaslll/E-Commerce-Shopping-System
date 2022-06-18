@@ -43,4 +43,18 @@ public class ShoppingCartRestController {
 
 		return customerService.getCustomerByEmail(email);
 	}
+	
+
+	@PostMapping("/cart/update/{productId}/{quantity}")
+	public String updateQuantity(@PathVariable("productId") Integer productId,
+			@PathVariable("quantity") Integer quantity, HttpServletRequest request) {
+		try {
+			Customer customer = getAuthenticatedCustomer(request);
+			float subtotal = cartService.updateQuantity(productId, quantity, customer);
+
+			return String.valueOf(subtotal);
+		} catch (CustomerNotFoundException ex) {
+			return "You must login to change quantity of product.";
+		}	
+	}
 }
