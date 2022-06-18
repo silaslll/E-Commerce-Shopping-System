@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Your Address Book', 'none')" />
+<body>
+<div class="container-fluid">
+	<div th:replace="navigation :: header_menu"></div>
+	<div th:replace="navigation :: search_nav"></div>
+	<div>
+		<h2>Your Address Book</h2>
+	</div>
+
+	<div class="row m-1">
+		<div class="col-sm-6 mt-2">
+			<div class="card" th:classappend="${usePrimaryAddressAsDefault ? 'bg-warning' : ''}">
+				<div class="card-header">
+					<div class="row">
+						<div class="col">
+							<b>Your Primary Address</b>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					[[${customer.address}]]
+				</div>
+			</div>
+		</div>
+
+		<th:block th:each="address, status: ${listAddresses}">
+		<div class="col-sm-6 mt-2">
+			<div class="card" th:classappend="${address.defaultForShipping ? 'bg-warning' : ''}">
+				<div class="card-header">
+					<div class="row">
+						<div class="col">
+							<b>Address #[[${status.count + 1}]]</b>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					[[${address}]]
+				</div>
+			</div>
+		</div>		
+		</th:block>		
+	</div>
+	<div>&nbsp;</div>
+	<div th:replace="navigation :: footer_menu"></div>
+</div>	
+</body>
+</html> 
