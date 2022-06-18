@@ -103,8 +103,6 @@ public class CustomerController {
 		return "customer/account_form";
 	}
 	
-
-	
 	@PostMapping("/update_account_details")
 	public String updateAccountDetails(Model model, Customer customer, RedirectAttributes ra,
 			HttpServletRequest request) {
@@ -113,7 +111,14 @@ public class CustomerController {
 		
 		updateNameForAuthenticatedCustomer(customer, request);
 		
-		return "redirect:/account_details";
+		String redirectOption = request.getParameter("redirect");
+		String redirectURL = "redirect:/account_details";
+		
+		if ("address_book".equals(redirectOption)) {
+			redirectURL = "redirect:/address_book";
+		}
+		
+		return redirectURL;
 	}
 
 	private void updateNameForAuthenticatedCustomer(Customer customer, HttpServletRequest request) {
