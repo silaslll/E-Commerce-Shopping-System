@@ -11,8 +11,7 @@ import javax.persistence.Table;
 
 @Entity                //Hibernate will create table from Entity class
 @Table(name = "roles") // use @Table with the name equal to the actual name of the table in the database: roles.
-public class Role {
-
+public class Role extends IdBasedEntity {
 	/*
 	 * In this entity class, we need to declare the instance fields that map to the
 	 * corresponding columns in the database table.
@@ -25,11 +24,7 @@ public class Role {
 	 * of this field will be generated automatically. 
 	 * With the strategy GenerationType.IDENTITY
 	 */
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)  //
-	private Integer id;
-	
+		
 	
 
 	/*@Column means this field name has same name with 
@@ -55,14 +50,6 @@ public class Role {
 	public Role(String name, String description) {
 		this.name = name;
 		this.description = description;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getName() {

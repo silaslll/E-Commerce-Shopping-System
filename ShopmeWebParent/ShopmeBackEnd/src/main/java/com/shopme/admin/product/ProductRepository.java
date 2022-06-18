@@ -4,7 +4,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.shopme.common.entity.Product;
+import com.shopme.common.entity.product.Product;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -115,34 +115,6 @@
 		</table>
 	</div>
 	
-	<div class="less-details">
-		<div th:each="product : ${listProducts}" class="row m-1">
-			<div class="col-4">
-				<img th:src="@{${product.mainImagePath}}" style="width: 80px" class="img-fluid" />			
-			</div>
-			<div class="col-8">
-				<div>
-					<a class="link-detail" th:href="@{'/products/detail/' + ${product.id}}">[[${product.shortName}]]</a>				
-				</div>
-				<div class="mt-2">
-					<a class="fas fa-file-alt fa-2x icon-green link-detail"
-						th:href="@{'/products/detail/' + ${product.id}}"
-						></a>
-						
-					<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
-					&nbsp; 	
-					<div th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})" />
-					</th:block>
-					
-					<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
-					&nbsp; 
-					<div th:replace="fragments :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)" />
-					</th:block>		
-				</div>
-			</div>
-			<div>&nbsp;</div>
-		</div>	
-	</div>
 		
 	<div th:replace="modal_fragments :: confirm_modal" />
 	

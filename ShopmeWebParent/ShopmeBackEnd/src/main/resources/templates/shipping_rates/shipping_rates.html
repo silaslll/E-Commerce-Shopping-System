@@ -46,25 +46,6 @@
 		</table>
 	</div>
 
-	<div class="less-details">
-		<div th:each="rate : ${shippingRates}" class="row m-1">
-			<div class="col-4">
-				<span><b>[[${rate.country.name}]]</b></span>
-				<br/>
-				<span>[[${rate.state}]]</span>
-			</div>
-			<div class="col-8">
-				<div>
-					<div th:replace="shipping_rates/shipping_rates_fragment :: cod_support" />
-					&nbsp; 
-					<div th:replace="fragments :: edit('shipping rate', '/shipping_rates/edit/' + ${rate.id})" />
-					&nbsp; 
-					<div th:replace="fragments :: delete('shipping rate', ${rate.id}, '/shipping_rates/delete/' + ${rate.id}, true)" />
-				</div>
-			</div>
-			<div>&nbsp;</div>
-		</div>	
-	</div>		
 
 	<div th:replace="fragments :: pagination('shipping rates')"></div>
 	<div th:replace="modal_fragments :: confirm_modal" />
