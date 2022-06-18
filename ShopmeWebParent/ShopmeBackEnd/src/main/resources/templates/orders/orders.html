@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_head('Customers - Shopme Admin', 'none')" />
+<head th:replace="fragments :: page_head('Orders - Shopme Admin', 'none')" />
 <body>
 <div class="container-fluid">
 	<div th:replace="navigation :: menu"></div>
@@ -10,7 +10,7 @@
 		
 	<div th:replace="fragments :: search_form_and_message" />
 	
-	<div>
+	<div class="full-details">
 		<table class="table table-bordered table-striped table-hover table-responsive-xl">
 			<thead class="thead-dark">
 				<tr>
@@ -18,9 +18,18 @@
 					<th th:replace="fragments :: column_link('customer', 'Customer', 'none')" />
 					<th th:replace="fragments :: column_link('total', 'Total', 'none')" />
 					<th th:replace="fragments :: column_link('orderTime', 'Order Time', 'none')" />
-					<th th:replace="fragments :: column_link('destination', 'Destination', 'none')" />
-					<th th:replace="fragments :: column_link('paymentMethod', 'Payment Method', 'none')" />
-					<th th:replace="fragments :: column_link('status', 'Status', 'none')" />
+					
+					<th class="hideable-column">
+					<th th:replace="fragments :: column_link('destination', 'Destination', 'tag')" />
+					</th>
+					
+					<th class="hideable-column">
+					<th th:replace="fragments :: column_link('paymentMethod', 'Payment Method', 'tag')" />
+					</th>
+					
+					<th class="hideable-column">
+					<th th:replace="fragments :: column_link('status', 'Status', 'tag')" />
+					</th>
 					
 					<th></th>
 				</tr>								
@@ -39,9 +48,9 @@
 					<td>
 						<div th:replace="fragments :: format_time(${order.orderTime})"></div>
 					</td>
-					<td>[[${order.destination}]]</td>
-					<td>[[${order.paymentMethod}]]</td>
-					<td>[[${order.status}]]</td>
+					<td class="hideable-column">[[${order.destination}]]</td>
+					<td class="hideable-column">[[${order.paymentMethod}]]</td>
+					<td class="hideable-column">[[${order.status}]]</td>
 
 					<td>
 						<a class="fas fa-file-alt fa-2x icon-green linkOrderDetail"
