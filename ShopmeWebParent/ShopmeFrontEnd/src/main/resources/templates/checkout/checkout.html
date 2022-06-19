@@ -9,7 +9,7 @@
 	<div class="text-center">
 		<h2>Checkout</h2>
 	</div>
-
+	
 	<div class="row m-1">
 		<div class="col-sm-8">
 			<div class="card">
@@ -27,21 +27,24 @@
 					</p>
 				</div>
 			</div>		
-
+			
 			<div class="card mt-3 mb-3">
 				<div class="card-header"><h5>Payment Method</h5></div>
 				<div class="card-body">
 					<div th:if="${checkoutInfo.codSupported}">
+						<form th:action="@{/place_order}" method="post">
 						<p>
-							<input type="radio" /> Cash on Delivery (COD)
+						
+							<input type="radio" name="paymentMethod" id="radioCOD" value="COD" /> Cash on Delivery (COD)
 							&nbsp;
-							<button class="btn btn-primary">Place Order with COD</button>
+							<button class="btn btn-primary d-none" type="submit" id="buttonSubmit">Place Order with COD</button>
 						</p>
+						</form>
 					</div>
 				</div>			
 			</div>
 		</div>
-
+		
 		<div class="col-sm-4">
 			<div class="card">
 				<div class="card-header"><h5>Order Summary</h5></div>
@@ -66,17 +69,17 @@
 						<tr><td colspan="3"><hr/></tr>
 					</table>
 					</div>
-
+					
 					<div class="row mt-2">
 						<div class="col">Product Total: </div>
 						<div class="col"><div th:replace="fragments :: format_currency(${checkoutInfo.productTotal})"></div></div>
 					</div>
-
+					
 					<div class="row mt-2">
 						<div class="col">Shipping Total: </div>
 						<div class="col"><div th:replace="fragments :: format_currency(${checkoutInfo.shippingCostTotal})"></div></div>
 					</div>
-
+							
 					<div class="row mt-2">
 						<div class="col">Payment Total: </div>
 						<div class="col"><b><div th:replace="fragments :: format_currency(${checkoutInfo.paymentTotal})"></div></b></div>
@@ -85,8 +88,20 @@
 			</div>		
 		</div>		
 	</div>
-
+	
 	<div th:replace="navigation :: footer_menu"></div>
 </div>
+<script type="text/javascript">
+	contextPath = "[[@{/}]]";
+	var csrfHeaderName = "[[${_csrf.headerName}]]";
+	var csrfValue = "[[${_csrf.token}]]";
+	
+	$(document).ready(function() {
+		$("#radioCOD").on("click", function() {
+			$("#buttonSubmit").removeClass("d-none");
+		});
+	});
+	
+</script>
 </body>
-</html>	 
+</html>
