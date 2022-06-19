@@ -59,6 +59,8 @@
 </div>	
 <script type="text/javascript">
 	contextPath = "[[@{/}]]";
+	var csrfHeaderName = "[[${_csrf.headerName}]]";
+	var csrfValue = "[[${_csrf.token}]]";
 	
 	$(document).ready(function() {
 		$('#buttonCancel').click(function() { 
