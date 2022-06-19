@@ -2,7 +2,7 @@
 	<h4 class="modal-title">Order Details</h4>
 	<button type="button" class="close" data-dismiss="modal">&times;</button>
 </div>
-
+		
 	<div>
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 		  <li class="nav-item">
@@ -13,7 +13,10 @@
 		  </li>
 		  <li class="nav-item">
 		    <a class="nav-link" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab">Shipping</a>
-		  </li>		  
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="track-tab" data-toggle="tab" href="#track" role="tab">Track</a>
+		  </li>		  		  		  
 		</ul>
 		<div class="tab-content" id="myTabContent">
 		  <div class="tab-pane fade show active p-3" id="overview" role="tabpanel" aria-labelledby="overview-tab">
@@ -180,11 +183,44 @@
 			      <input type="text" readonly class="form-control" th:value="${order.postalCode}">
 			    </div>
 			  </div>			  
-		  </div>  
-		</div>
-
+		  </div>
+		  
+		  <div class="tab-pane fade p-3" id="track" role="tabpanel" aria-labelledby="track-tab">
+		  	<div class="full-details">
+			<table class="table table-striped table-bordered table-hover table-responsive-sm">
+				<thead class="thead-dark">
+					<tr>
+						<th>Time</th>
+						<th>Status</th>
+						<th>Notes</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="track : ${order.orderTracks}">
+						<td>[[${track.updatedTime}]]</td>
+						<td>[[${track.status}]]</td>
+						<td><i>[[${track.notes}]]</i></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			
+			<div class="less-details">
+			<th:block th:each="track : ${order.orderTracks}">
+				<div class="row p-1">
+					<span>[[${track.updatedTime}]]</span>
+				</div>
+				<div class="row p-1 ml-3">
+					<span>&nbsp;&nbsp;<b>[[${track.status}]]</b>: <i>[[${track.notes}]]</i></span>
+				</div>				
+				<div class="row">&nbsp;</div>							
+			</th:block>
+			</div>
+		  </div>
+		  		    
+		</div>				
 	</div>
-
+	
 <div class="modal-footer">
 	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-</div> 
+</div>
