@@ -73,6 +73,14 @@ public class OrderService {
 			orderDetails.add(orderDetail);
 		}
 		
+		OrderTrack track = new OrderTrack();
+		track.setOrder(newOrder);
+		track.setStatus(OrderStatus.NEW);
+		track.setNotes(OrderStatus.NEW.defaultDescription());
+		track.setUpdatedTime(new Date());
+		
+		newOrder.getOrderTracks().add(track);
+		
 		return repo.save(newOrder);
 	}
 	
