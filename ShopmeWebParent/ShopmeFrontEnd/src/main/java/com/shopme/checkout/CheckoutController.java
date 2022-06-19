@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.shopme.Utility;
 import com.shopme.address.AddressService;
+import com.shopme.checkout.paypal.PayPalApiException;
+import com.shopme.checkout.paypal.PayPalService;
 import com.shopme.common.entity.Address;
 import com.shopme.common.entity.CartItem;
 import com.shopme.common.entity.Customer;
@@ -44,6 +46,7 @@ public class CheckoutController {
 	@Autowired private ShoppingCartService cartService;
 	@Autowired private OrderService orderService;
 	@Autowired private SettingService settingService;
+	@Autowired private PayPalService paypalService;
 	
 	@GetMapping("/checkout")
 	public String showCheckoutPage(Model model, HttpServletRequest request) {
@@ -146,5 +149,31 @@ public class CheckoutController {
 		
 		helper.setText(content, true);
 		mailSender.send(message);		
+	}
+	
+	@PostMapping("/process_paypal_order")
+	public String processPayPalOrder(HttpServletRequest request, Model model) 
+			throws UnsupportedEncodingException, MessagingException {
+		String orderId = request.getParameter("orderId");
+		
+		String pageTitle = "Checkout Failure";
+		String message = null;
+		
+		try {
+			if (paypalService.validateOrder(orderId)) {
+				return placeOrder(request);
+			} else {
+				pageTitle = "Checkout Failure";
+				message = "ERROR: Transaction could not be completed because order information is invalid";
+			}
+		} catch (PayPalApiException e) {
+			message = "ERROR: Transaction failed due to error: " + e.getMessage();
+		}
+		
+		model.addAttribute("pageTitle", pageTitle);
+		model.addAttribute("title", pageTitle);
+		model.addAttribute("message", message);
+		
+		return "message";
 	}
 }
