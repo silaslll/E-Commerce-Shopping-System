@@ -1,20 +1,24 @@
+var trackRecordCount;
+
 $(document).ready(function() {
+	trackRecordCount = $(".hiddenTrackId").length;
+	
 	$("#trackList").on("click", ".linkRemoveTrack", function(e) {
 		e.preventDefault();
 		deleteTrack($(this));
 		updateTrackCountNumbers();
 	});
-
+	
 	$("#track").on("click", "#linkAddTrack", function(e) {
 		e.preventDefault();
 		addNewTrackRecord();
 	});
-
+	
 	$("#trackList").on("change", ".dropDownStatus", function(e) {
 		dropDownList = $(this);
 		rowNumber = dropDownList.attr("rowNumber");
 		selectedOption = $("option:selected", dropDownList);
-
+		
 		defaultNote = selectedOption.attr("defaultDescription");
 		$("#trackNote" + rowNumber).text(defaultNote);
 	});	
@@ -38,12 +42,13 @@ function addNewTrackRecord() {
 }
 
 function generateTrackCode() {
-	nextCount = $(".hiddenTrackId").length + 1;
+	nextCount = trackRecordCount + 1;
+	trackRecordCount++;
 	rowId = "rowTrack" + nextCount;
 	emptyLineId = "emptyLine" + nextCount;
 	trackNoteId = "trackNote" + nextCount;
 	currentDateTime = formatCurrentDateTime();
-
+	
 	htmlCode = `
 			<div class="row border rounded p-1" id="${rowId}">
 				<input type="hidden" name="trackId" value="0" class="hiddenTrackId" />
@@ -65,9 +70,9 @@ function generateTrackCode() {
 				<div class="col">
 					<select name="trackStatus" class="form-control dropDownStatus" required style="max-width: 150px" rowNumber="${nextCount}">
 			`;
-
+	  
 	htmlCode += $("#trackStatusOptions").clone().html();
-
+	
 	htmlCode += `
 				      </select>						
 				    </div>
@@ -83,7 +88,7 @@ function generateTrackCode() {
 			</div>	
 			<div id="${emptyLineId}" class="row">&nbsp;</div>
 	`;
-
+	
 	return htmlCode;
 }
 
@@ -95,14 +100,14 @@ function formatCurrentDateTime() {
 	hour = date.getHours();
 	minute = date.getMinutes();
 	second = date.getSeconds();
-
+	
 	if (month < 10) month = "0" + month;
 	if (day < 10) day = "0" + day;
-
+	
 	if (hour < 10) hour = "0" + hour;
 	if (minute < 10) minute = "0" + minute;
 	if (second < 10) second = "0" + second;
-
+	
 	return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
-
-} 
+	
+}
