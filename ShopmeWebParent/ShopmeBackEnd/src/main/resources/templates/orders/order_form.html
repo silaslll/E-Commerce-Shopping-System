@@ -53,6 +53,7 @@
 	</form>
 	
 	<div th:replace="modal_fragments :: modal_dialog"></div>
+	<div th:replace="orders/add_product_modal :: content"></div>
 		
 	<div th:replace="fragments :: footer">Static footer</div>
 </div>	
@@ -70,5 +71,6 @@
 <script th:src="@{/js/common_form_country_state.js}"></script>
 <script th:src="@{/js/jquery.number.min.js}"></script>
 <script th:src="@{/js/order_form_overview_products.js}"></script>
+<script th:src="@{/js/order_form_add_product.js}"></script>
 </body>
 </html>

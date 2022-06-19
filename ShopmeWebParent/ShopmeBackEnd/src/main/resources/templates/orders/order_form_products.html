@@ -3,7 +3,7 @@
 <body>
 <div th:fragment="content" th:remove="tag">				
 	<div id="productList">
-
+		
 		<th:block th:each="detail, status : ${order.orderDetails}">
 		<div class="border rounded p-1" th:with="product = ${detail.product}">
 			<div class="row">
@@ -14,11 +14,11 @@
 					<img th:src="@{${product.mainImagePath}}" class="img-fluid" />
 				</div>
 			</div>
-
+			
 			<div class="row m-2">
 				<b>[[${product.name}]]</b>
 			</div>
-
+			
 			<div class="row m-2">
 			<table>
 				<tr>
@@ -64,10 +64,12 @@
 				</tr>											
 			</table>
 			</div>
-
+			
 		</div>
 		<div class="row">&nbsp;</div>
 		</th:block>
-
+	
 	</div>
-</div> 
+	
+	<a th:href="@{/orders/search_product}" id="linkAddProduct" class="btn btn-success">Add a Product</a>
+</div>
