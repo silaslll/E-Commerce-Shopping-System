@@ -41,6 +41,8 @@
 						</p>
 						</form>
 					</div>
+					
+					<div id="paypal-button-container"></div>
 				</div>			
 			</div>
 		</div>
@@ -91,6 +93,7 @@
 	
 	<div th:replace="navigation :: footer_menu"></div>
 </div>
+<script th:src="@{https://www.paypal.com/sdk/js(client-id=${paypalClientId},currency=${currencyCode})}"></script>
 <script type="text/javascript">
 	contextPath = "[[@{/}]]";
 	var csrfHeaderName = "[[${_csrf.headerName}]]";
@@ -102,6 +105,73 @@
 		});
 	});
 	
+	paypal.Buttons({
+		enableStandardCardFields: true,
+		createOrder: function(data, actions) {
+			// setup a transaction
+			return actions.order.create({
+				
+				intent: 'CAPTURE', // make payment immediately
+				payer: {
+					name: {
+					given_name: "[[${customer.firstName}]]",
+					surname: "[[${customer.lastName}]]"
+					},
+				
+					address: {
+						address_line_1: "[[${customer.addressLine1}]]",
+						address_line_2: "[[${customer.addressLine2}]]",
+						admin_area_1: "[[${customer.state}]]",
+						admin_area_2: "[[${customer.city}]]",
+						postal_code: "[[${customer.postalCode}]]",
+						country_code: "[[${customer.country.code}]]"
+					},
+					
+					email_address: "[[${customer.email}]]",
+					
+					phone: {
+						phone_type: "MOBILE",
+						phone_number: {
+							national_number: "[[${customer.phoneNumber}]]"
+						}
+					}
+				},
+				
+				purchase_units: [{
+					amount: {
+						value: "[[${checkoutInfo.paymentTotal4PayPal}]]",
+						currency_code: "[[${currencyCode}]]"
+					}
+				}],
+				
+				application_context: {
+					shipping_preference: "NO_SHIPPING"
+				}
+			});
+		},
+		
+		onApprove: function(data, actions) {
+			// buyer approved payment
+			return actions.order.capture().then(function(details) {
+				console.log(details);
+				orderId = details.id;
+				totalAmount = details.purchase_units[0].amount.value;
+				
+				alert("Transaction completed. Order ID: " + orderId + ". Amount paid: " + totalAmount);
+			});
+		},
+		
+		onCancel: function(data) {
+			// buyer cancelled payment
+			alert('Payment cancelled by the buyer');
+		},
+		
+		onError: function(err) {
+			// error that prevents buyer from doing checkout
+			alert('Something wrong happened: ');
+		}
+	}).render("#paypal-button-container");
+	
 </script>
 </body>
-</html>
+</html>	
