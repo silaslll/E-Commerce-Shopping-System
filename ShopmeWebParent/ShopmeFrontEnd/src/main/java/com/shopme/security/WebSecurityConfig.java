@@ -7,8 +7,8 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,8 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/account_details", "/update_account_details", 
-					"/cart", "/address_book/**", "/checkout", "/place_order", "/process_paypal_order").authenticated()
+			.antMatchers("/account_details", "/update_account_details", "/orders/**",
+					"/cart", "/address_book/**", "/checkout", "/place_order", 
+					"/process_paypal_order").authenticated()
 			.anyRequest().permitAll()
 			.and()
 			.formLogin()
