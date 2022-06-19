@@ -43,6 +43,10 @@
 					</div>
 					
 					<div id="paypal-button-container"></div>
+					<form th:action="@{/process_paypal_order}" method="post" id="paypalForm">
+						<input type="hidden" name="orderId" id="orderId" />
+						<input type="hidden" name="paymentMethod" value="PAYPAL" />
+					</form>
 				</div>			
 			</div>
 		</div>
@@ -91,9 +95,11 @@
 		</div>		
 	</div>
 	
+	<div th:replace="fragments :: modal_dialog"></div>
 	<div th:replace="navigation :: footer_menu"></div>
 </div>
 <script th:src="@{https://www.paypal.com/sdk/js(client-id=${paypalClientId},currency=${currencyCode})}"></script>
+<script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
 <script type="text/javascript">
 	contextPath = "[[@{/}]]";
 	var csrfHeaderName = "[[${_csrf.headerName}]]";
@@ -104,6 +110,11 @@
 			$("#buttonSubmit").removeClass("d-none");
 		});
 	});
+	
+	function validateOrder(orderId) {
+		$("#orderId").val(orderId);
+		$("#paypalForm").submit();
+	}
 	
 	paypal.Buttons({
 		enableStandardCardFields: true,
@@ -153,11 +164,9 @@
 		onApprove: function(data, actions) {
 			// buyer approved payment
 			return actions.order.capture().then(function(details) {
-				console.log(details);
+				//console.log(details);
 				orderId = details.id;
-				totalAmount = details.purchase_units[0].amount.value;
-				
-				alert("Transaction completed. Order ID: " + orderId + ". Amount paid: " + totalAmount);
+				validateOrder(orderId);				
 			});
 		},
 		
@@ -168,7 +177,7 @@
 		
 		onError: function(err) {
 			// error that prevents buyer from doing checkout
-			alert('Something wrong happened: ');
+			showErrorModal("Something wrong with your address information, so payment will not work.");
 		}
 	}).render("#paypal-button-container");
 	
