@@ -21,9 +21,13 @@
 				<li class="nav-item">
 					<a class="nav-link" href="">Shipping &amp; Delivery</a>
 				</li>
+				
+				<th:block sec:authorize="!isAuthenticated()">
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/login}">Login</a>
 				</li>
+				<th:block sec:authorize="isAuthenticated()">
+				
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/register}">Register</a>
 				</li>

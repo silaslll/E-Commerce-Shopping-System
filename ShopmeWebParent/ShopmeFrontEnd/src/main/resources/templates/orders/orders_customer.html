@@ -8,12 +8,12 @@
 	<div>
 		<h2>My Orders</h2>	
 	</div>
-
+		
 	<div>
 		<form th:action="@{'/orders/page/1'}" class="form-inline m-3">
 			<input type="hidden" name="sortField" th:value="${sortField}" />
 			<input type="hidden" name="sortDir" th:value="${sortDir}" />
-
+			
 			Filter:&nbsp;
 			<input type="search" name="orderKeyword" th:value="${orderKeyword}" class="form-control" required/>
 			&nbsp;&nbsp;
@@ -26,7 +26,7 @@
 			</button>
 		</form>				
 	</div>
-
+	
 	<div class="full-details">
 		<table class="table table-bordered table-striped table-hover table-responsive-xl">
 			<thead class="thead-dark">
@@ -49,8 +49,10 @@
 					</td>
 					<td><span>[[${order.status}]]</span></td>
 					<td>
-						<a class="fas fa-file-alt fa-2x icon-green" href="" title="View details of this order"></a>
-
+						<a class="fas fa-file-alt fa-2x icon-green linkDetail" 
+							th:href="@{'/orders/detail/' + ${order.id}}" 
+							title="View details of this order"></a>
+									
 						<th:block th:unless="${order.returnRequested}">
 							&nbsp;&nbsp;&nbsp;		
 							<a class="fas fa-undo fa-2x icon-dark " href="" title="Return this order"></a>
@@ -72,8 +74,9 @@
 						</div>						
 						<div class="col">
 							<div class="float-right">
-								<a class="fas fa-file-alt fa-2x icon-green" href=""></a>
-
+								<a class="fas fa-file-alt fa-2x icon-green linkDetail" 
+									th:href="@{'/orders/detail/' + ${order.id}}"></a>
+								
 								<th:block th:unless="${order.returnRequested}">
 									&nbsp;
 									<a class="fas fa-undo fa-2x icon-dark" href="" title="Return this order"></a>
@@ -100,12 +103,19 @@
 		</div>	
 	</th:block>
 	</div>		
-
+	
 	<div th:replace="fragments :: pagination('/orders', 'orders')"></div>
-
+		
+	<div class="modal fade" id="orderDetailsModal">
+	  <div class="modal-dialog modal-xl">
+	    <div class="modal-content">
+	    </div>
+	  </div>
+	</div>	
+			
 	<div>&nbsp;</div>
 	<div th:replace="navigation :: footer_menu"></div>
-
+	
 </div>
 <script type="text/javascript">
 	moduleURL = "[[@{/orders}]]";
@@ -114,6 +124,16 @@
 		window.location = moduleURL;
 	}
 
+	$(document).ready(function(){
+		handleDetailLink();
+	});
+	
+	function handleDetailLink() {
+		$(".linkDetail").on("click", function(e) {
+			e.preventDefault();
+			$('#orderDetailsModal').modal('show').find('.modal-content').load($(this).attr('href'));
+		});		
+	}	
 </script>
 </body>
-</html> 
+</html>
