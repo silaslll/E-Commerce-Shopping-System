@@ -1,5 +1,6 @@
 package com.shopme.admin.order;
 
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -14,6 +15,8 @@ import com.shopme.admin.paging.PagingAndSortingHelper;
 import com.shopme.admin.setting.country.CountryRepository;
 import com.shopme.common.entity.Country;
 import com.shopme.common.entity.order.Order;
+import com.shopme.common.entity.order.OrderStatus;
+import com.shopme.common.entity.order.OrderTrack;
 
 @Service
 public class OrderService {
@@ -68,13 +71,35 @@ public class OrderService {
 
 	public List<Country> listAllCountries() {
 		return countryRepo.findAllByOrderByNameAsc();
-	}	
-	
+	}
+
 	public void save(Order orderInForm) {
 		Order orderInDB = orderRepo.findById(orderInForm.getId()).get();
 		orderInForm.setOrderTime(orderInDB.getOrderTime());
 		orderInForm.setCustomer(orderInDB.getCustomer());
-
+		
 		orderRepo.save(orderInForm);
 	}	
+	
+	public void updateStatus(Integer orderId, String status) {
+		Order orderInDB = orderRepo.findById(orderId).get();
+		OrderStatus statusToUpdate = OrderStatus.valueOf(status);
+		
+		if (!orderInDB.hasStatus(statusToUpdate)) {
+			List<OrderTrack> orderTracks = orderInDB.getOrderTracks();
+			
+			OrderTrack track = new OrderTrack();
+			track.setOrder(orderInDB);
+			track.setStatus(statusToUpdate);
+			track.setUpdatedTime(new Date());
+			track.setNotes(statusToUpdate.defaultDescription());
+			
+			orderTracks.add(track);
+			
+			orderInDB.setStatus(statusToUpdate);
+			
+			orderRepo.save(orderInDB);
+		}
+		
+	}
 }
