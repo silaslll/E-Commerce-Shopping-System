@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.shopme.admin.FileUploadUtil;
 import com.shopme.common.entity.Currency;
 import com.shopme.common.entity.setting.Setting;
+import com.shopme.common.Constants;
+
 
 @Controller
 public class SettingController {
@@ -37,6 +39,7 @@ public class SettingController {
 		for (Setting setting : listSettings) {
 			model.addAttribute(setting.getKey(), setting.getValue());
 		}
+		model.addAttribute("S3_BASE_URI", Constants.S3_BASE_URI);
 		
 		return "settings/settings";
 	}
