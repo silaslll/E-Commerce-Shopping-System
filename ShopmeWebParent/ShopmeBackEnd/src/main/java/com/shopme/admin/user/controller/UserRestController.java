@@ -13,9 +13,7 @@ import com.shopme.admin.user.UserService;
 public class UserRestController {
 	@Autowired
 	private UserService service;
-	
-	
-	
+		
 	//check the uniqueness of user email
 	@PostMapping("/users/check_email")
 	public String checkDuplicateEmail(Integer id, String email) {
