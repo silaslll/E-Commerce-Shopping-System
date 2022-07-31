@@ -21,6 +21,13 @@ public class ReportRestController {
 				
 			case "last_28_days":
 				return masterOrderReportService.getReportDataLast28Days();
+
+			case "last_6_months":
+				return masterOrderReportService.getReportDataLast6Months();
+
+			case "last_year":
+				return masterOrderReportService.getReportDataLastYear();
+				
 			default:
 				return masterOrderReportService.getReportDataLast7Days();
 		}
