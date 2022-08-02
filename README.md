@@ -7,6 +7,28 @@
 *** Thanks again! Now go create something AMAZING! :D
 -->
 
+<div align="center">
+  <a href="https://github.com/silaslll/E-Commerce-Shopping-System">
+    <img src="ShopmeWebParent/site-logo/MyShop.png" alt="Logo" width="100" height="60">
+  </a>
+
+
+  <p align="center">
+    An awesome shopping website!
+    <br />
+    <a href="https://github.com/silaslll/E-Commerce-Shopping-System"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://xinran-admin.herokuapp.com/">View administration app Demo</a>
+    ·
+    <a href="https://xinran-store.herokuapp.com/">View shopping app Demo</a>
+    ·
+    <a href="https://github.com/silaslll/E-Commerce-Shopping-System/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/silaslll/E-Commerce-Shopping-System/issues">Request Feature</a>
+  </p>
+</div>
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
