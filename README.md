@@ -66,9 +66,13 @@ Shopme is an E-commerce web application including an administration app for mana
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
 Backend : Spring Boot
+
 Frontend : Thymeleaf, Javascript
+
 Server : AWS EC2
+
 Database : MySQL
+
 Deployment : Heroku, Amazon S3
 
 <p align="right">(<a href="#top">back to top</a>)</p>
