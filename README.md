@@ -7,17 +7,76 @@
 *** Thanks again! Now go create something AMAZING! :D
 -->
 
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+  </ol>
+</details>
 
 
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+##Shopme
+
+Shopme is an E-commerce web application including an administration app for managing 8+ modules (e.g. authorization, product, setting, etc.) and a client-side shopping app with support for browsing products, placing orders, and checking out.
+
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+### Built With
+
+This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+
+Backend : Spring Boot
+Frontend : Thymeleaf, Javascript
+Server : AWS EC2
+Database : MySQL
+Deployment : Heroku, Amazon S3
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+* Install MAVEN
+  ```sh
+  https://maven.apache.org/download.cgi
+  ```
+
+* Install JDK 
+  ```sh
+  https://www.oracle.com/java/technologies/downloads/
+  ```
+
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/silaslll/E-Commerce-Shopping-System.git
+   ```
+2. Wait for MAVEN to Install the dependencies
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
