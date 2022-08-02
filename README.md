@@ -31,7 +31,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-##Shopme
+## Shopme
 
 Shopme is an E-commerce web application including an administration app for managing 8+ modules (e.g. authorization, product, setting, etc.) and a client-side shopping app with support for browsing products, placing orders, and checking out.
 
