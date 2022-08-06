@@ -40,6 +40,11 @@ public class MasterOrderReportService {
 		return getReportDataByDateRange(startTime, endTime, "days");
 	}
 	
+	public List<ReportItem> getReportDataByDateRange(Date startTime, Date endTime) {
+		dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		return getReportDataByDateRange(startTime, endTime, "days");
+	}
+	
 	private List<ReportItem> getReportDataByDateRange(Date startTime, Date endTime, String period) {
 		List<Order> listOrders = repo.findByOrderTimeBetween(startTime, endTime);
 		printRawData(listOrders);
