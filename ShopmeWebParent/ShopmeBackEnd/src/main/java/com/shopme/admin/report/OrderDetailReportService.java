@@ -1,4 +1,4 @@
-ackage com.shopme.admin.report;
+package com.shopme.admin.report;
 
 import java.util.ArrayList;
 import java.util.Date;
