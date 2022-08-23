@@ -70,9 +70,13 @@ Frontend : Thymeleaf, Javascript
 
 Server : AWS EC2
 
-Database : MySQL
+Database : MySQL, ClearDB
 
 Deployment : Heroku, Amazon S3
+
+Technology : Spring Mail Sender API, Spring OAuth2 Client API
+
+Test : JUnit, AssertJ, Mockito, Mockmvc
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
