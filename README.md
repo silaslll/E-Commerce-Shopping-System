@@ -74,7 +74,7 @@ Database : MySQL, ClearDB
 
 Deployment : Heroku, Amazon S3
 
-Technology : Spring Mail Sender API, Spring OAuth2 Client API
+Third-Party Integration : Spring Mail Sender API, Spring OAuth2 Client API, Paypal Checkout API
 
 Test : JUnit, AssertJ, Mockito, Mockmvc
 
