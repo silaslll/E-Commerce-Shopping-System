@@ -76,7 +76,7 @@ Deployment : Heroku, Amazon S3
 
 Third-Party Integration : Spring Mail Sender API, Spring OAuth2 Client API, Paypal Checkout API
 
-Test : JUnit, AssertJ, Mockito, Mockmvc
+Unit Test and Integration Test: JUnit, AssertJ, Mockito, Mockmvc
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
